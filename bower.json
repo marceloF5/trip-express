@@ -1,0 +1,21 @@
+{
+  "name": "trip4vip",
+  "version": "0.0.0",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "1.3",
+    "bootstrap": "3.3",
+    "angular": "1.3",
+    "angular-resource": "1.3",
+    "angular-ui-calendar": "~1.0.1",
+    "angular-mask": "~3.0.12"
+  }
+}

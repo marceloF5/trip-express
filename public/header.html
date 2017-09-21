@@ -1,0 +1,35 @@
+ <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluig">
+        <div class="col-md-3">
+            <div class="navbar-header">            
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">                            
+                <span class="glyphicon glyphicon-menu-hamburger"></span>                           
+                </button>                                   
+                <a class="navbar-brand" href="#/home">
+                    <img alt="Brand" width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAA81BMVEX///9VPnxWPXxWPXxWPXxWPXxWPXxWPXz///9hSYT6+vuFc6BXPn37+vz8+/z9/f2LeqWMe6aOfqiTg6uXiK5bQ4BZQX9iS4VdRYFdRYJfSINuWI5vWY9xXJF0YJR3Y5Z4ZZd5ZZd6Z5h9apq0qcW1qsW1q8a6sMqpnLyrn76tocCvpMGwpMJoUoprVYxeRoJjS4abjLGilLemmbrDutDFvdLPx9nX0eDa1OLb1uPd1+Td2OXe2eXh3Ofj3+nk4Orl4evp5u7u7PLv7fPx7/T08vb08/f19Pf29Pj39vn6+fuEcZ9YP35aQn/8/P1ZQH5fR4PINAOdAAAAB3RSTlMAIWWOw/P002ipnAAAAPhJREFUeF6NldWOhEAUBRvtRsfdfd3d3e3/v2ZPmGSWZNPDqScqqaSBSy4CGJbtSi2ubRkiwXRkBo6ZdJIApeEwoWMIS1JYwuZCW7hc6ApJkgrr+T/eW1V9uKXS5I5GXAjW2VAV9KFfSfgJpk+w4yXhwoqwl5AIGwp4RPgdK3XNHD2ETYiwe6nUa18f5jYSxle4vulw7/EtoCdzvqkPv3bn7M0eYbc7xFPXzqCrRCgH0Hsm/IjgTSb04W0i7EGjz+xw+wR6oZ1MnJ9TWrtToEx+4QfcZJ5X6tnhw+nhvqebdVhZUJX/oFcKvaTotUcvUnY188ue/n38AunzPPE8yg7bAAAAAElFTkSuQmCC">
+                </a>                        
+                <a class="navbar-brand" ng-href="#/Login"><b>TRIP Express </b><i>beta</i></a>
+            </div>                        
+        </div>                
+        <form name="formNavLogout" ng-controller="MenuController">               
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                
+                <ul class="nav navbar-nav">
+                    <li ng-show="access()" ng-class="{active: active('home') || 
+                                                      active('customers') || active('customer_input') ||
+                                                      active('vehicles') || active('vehicles_input') ||
+                                                      active('prices') || active('prices_input') ||
+                                                      active('users') || active('user_input')}"><a ng-href="#/home">Administração</a></li>
+                    <li ng-hide="access()" ng-class="{active: active('workspace_customer') ||
+                                                      active('schedules') || active('workspace_users')}"><a ng-href="#/workspace_customer">Área do Cliente</a></li>
+                    <li ng-show="access()" ng-class="{active: active('workspace_owner') || 
+                                                      active('schedules_owner') || active('schedules_owner_vip')  ||
+                                                      active('workspace_services') || active('workspace_services_input')}"><a ng-href="#/workspace_owner">Área de Trabalho</a></li>                    
+                </ul>                              
+                <ul class="nav navbar-nav navbar navbar-right" ng-controller="LoginController"> 
+                    <li><a>Bem-vindo {{userName}}</a></li>                                                   
+                    <li><a type="submit" class="btn" ng-click="logout()"><i class="glyphicon glyphicon-off"></i> Sair</a></li>   
+                </ul>
+            </div>
+        </form>
+    </div>          
+</nav>

@@ -1,0 +1,130 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/home">Administração</a></li>
+                <li><a ng-href="#/vehicles">Veículos</a></li>
+                <li>Veículo</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                      
+            </ol>  
+        </div>
+    </div>            
+</div>   
+
+
+<div ng-include="template.left"></div>
+
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <legend>
+                <h2><b>Veículo</b></h2>                            
+            </legend>                            
+        </div>                                           
+    </div> 
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <form data-ng-submit="saveVehicle()" class="form-horizontal" name="formVehicle"> 
+                <div  ng-show="alertMessage" class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-md-6" ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                        'alert alert-success': typeMessage == 'success', 
+                                        'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}
+                        </div>       
+                    </div>    
+                </div>                  
+                <div ng-class="{'has-error': formVehicle.vehicle_fleet.$invalid && !formVehicle.vehicle_fleet.$pristine}" class="form-group">          
+                    <label for="vehicle_fleet" class="col-md-2 control-label">Frota*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.fleet" ng-required="true" ng-disabled="disableField" type="text" class="form-control" name="vehicle_fleet" id="vehicle_fleet">         
+                        <p ng-show="formVehicle.vehicle_fleet.$invalid && !formVehicle.vehicle_fleet.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>                    
+                </div>
+                <div ng-class="{'has-error': formVehicle.vehicle_frame.$invalid && !formVehicle.vehicle_frame.$pristine }" class="form-group">
+                    <label for="vehicle_frame" class="col-md-2 control-label">Chassi*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.frame" ng-required="true" type="text" class="form-control" name="vehicle_frame" id="vehicle_frame">
+                        <p ng-show="formVehicle.vehicle_frame.$invalid && !formVehicle.vehicle_frame.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>  
+                <div ng-class="{'has-error': formVehicle.vehicle_license.$invalid && !formVehicle.vehicle_license.$pristine}" class="form-group">
+                    <label for="vehicle_license" class="col-md-2 control-label">Placa*:</label>
+                    <div class="col-md-2">
+                        <input ng-model="vehicle.license" ng-required="true" type="text" class="form-control" name="vehicle_license" id="vehicle_license">                        
+                        <p ng-show="formVehicle.vehicle_license.$invalid && !formVehicle.vehicle_license.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>
+                <div ng-class="{'has-error': formSchedule.vehicle_brand.$invalid && !formSchedule.vehicle_brand.$pristine}" class="form-group">
+                    <label for="vehicle_brand" class="col-md-2 control-label">Marca*:</label>
+                    <div class="col-md-2">
+                        <select ng-model="vehicle.brand" ng-required="true" ng-options="brand._id as brand.name for brand in brands" ng-disabled="disableField" class="form-control">            
+                        </select>
+                        <p ng-show="formSchedule.vehicle_brand.$invalid && !formSchedule.vehicle_brand.$pristine" class="help-block">Selecione uma Marca</p>                  
+                    </div>                                    
+                </div>
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_model.$invalid && !formVehicle.vehicle_model.$pristine}" class="form-group">
+                    <label for="vehicle_model" class="col-md-2 control-label">Modelo*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.model" ng-required="true" type="text" class="form-control" name="vehicle_model" id="vehicle_model">                        
+                        <p ng-show="formVehicle.vehicle_model.$invalid && !formVehicle.vehicle_model.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>                
+                </div>
+                <div ng-class="{'has-error': formSchedule.vehicle_fuel.$invalid && !formSchedule.vehicle_fuel.$pristine}" class="form-group">
+                    <label for="vehicle_fuel" class="col-md-2 control-label">Combustível*:</label>
+                    <div class="col-md-3">
+                        <select ng-model="vehicle.fuel" ng-required="true" ng-options="fuel._id as fuel.fuel for fuel in fuels" ng-disabled="disableField" class="form-control">            
+                        </select>
+                        <p ng-show="formSchedule.vehicle_fuel.$invalid && !formSchedule.vehicle_fuel.$pristine" class="help-block">Selecione uma Marca</p>                  
+                    </div>                                    
+                </div>
+                
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_yearMade.$invalid && !formVehicle.vehicle_yearMade.$pristine}" class="form-group">
+                    <label for="vehicle_yearMade" class="col-md-2 control-label">Ano / Fabricado*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.yearMade" ng-required="true" type="text" class="form-control" name="vehicle_yearMade" id="vehicle_yearMade">                        
+                        <p ng-show="formVehicle.vehicle_yearMade.$invalid && !formVehicle.vehicle_yearMade.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>  
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_yearMode.$invalid && !formVehicle.vehicle_yearMode.$pristine}" class="form-group">
+                    <label for="vehicle_yearMode" class="col-md-2 control-label">Ano / Modelo*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.yearMode" ng-required="true" type="text" class="form-control" name="vehicle_yearMode" id="vehicle_yearMode">                        
+                        <p ng-show="formVehicle.vehicle_yearMode.$invalid && !formVehicle.vehicle_yearMode.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_doors.$invalid && !formVehicle.vehicle_doors.$pristine}" class="form-group">
+                    <label for="vehicle_doors" class="col-md-2 control-label">Portas*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.doors" ng-required="true" type="text" class="form-control" name="vehicle_doors" id="vehicle_doors">                        
+                        <p ng-show="formVehicle.vehicle_doors.$invalid && !formVehicle.vehicle_doors.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>  
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_passengers.$invalid && !formVehicle.vehicle_passengers.$pristine}" class="form-group">
+                    <label for="vehicle_passengers" class="col-md-2 control-label">Passageiros*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.passengers" ng-required="true" type="text" class="form-control" name="vehicle_passengers" id="vehicle_passengers">                        
+                        <p ng-show="formVehicle.vehicle_passengers.$invalid && !formVehicle.vehicle_passengers.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>  
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formVehicle.vehicle_fipeCode.$invalid && !formVehicle.vehicle_fipeCode.$pristine}" class="form-group">
+                    <label for="vehicle_fipeCode" class="col-md-2 control-label">Código FIPE*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="vehicle.fipeCode" ng-required="true" type="text" class="form-control" name="vehicle_fipeCode" id="vehicle_fipeCode">                        
+                        <p ng-show="formVehicle.vehicle_fipeCode.$invalid && !formVehicle.vehicle_fipeCode.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>                  
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-primary" ng-disabled="formvehicle.$invalid">Salvar</button>                  
+                        <a ng-href="#/vehicles" type="button" class="btn btn-danger">Cancelar</a> 
+                        <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Cancelar</button> -->
+                    </div>
+                </div>                                  
+            </form>
+        </div>                        
+    </div>
+</div><!--/col-md-9--> 

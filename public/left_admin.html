@@ -1,0 +1,13 @@
+<div class="col-md-2">
+    <div class="well">                   
+        <ul class="nav nav-pills nav-stacked" ng-controller="MenuController">
+            <li><b>Gestão de Negócio</b></li>                          
+            <li ng-class="{active: active('customers') || active('customer_input')}"><a ng-href="#/customers">Clientes</a></li>            
+            <li ng-class="{active: active('vehicles') || active('vehicles_input')}"><a ng-href="#/vehicles">Veículos</a></li>
+            <li ng-class="{active: active('prices') || active('prices_input')}"><a ng-href="#/prices">Tabela de Preços</a></li>
+            <li><b>Gestão de Ambiente</b></li>
+            <li ng-class="{active: active('users') || active('user_input')}"><a ng-href="#/users">Usuários</a></li>
+        </ul>                        
+    </div>
+</div> 
+

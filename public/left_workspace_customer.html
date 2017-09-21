@@ -1,0 +1,12 @@
+<div class="col-md-2" ng-controller="MenuController" >
+    <div class="well" ng-show="{active: active('/workspace_customer')}">                   
+        <ul class="nav nav-pills nav-stacked">
+            <li><b>Gestão de Negócio</b></li>                          
+            <li ng-class="{active: active('schedules')}"><a ng-href="#/schedules">Agendamento</a></li>
+            <li><a ng-href="">Movimentação O.S.</a></li>
+            <!--<li ng-show="xx()"><a ng-href="/">Pontuaçao</a></li>                       -->
+            <li ng-show="xx()" ><b>Gestão de Acessos Internos</b></li>
+            <li ng-show="xx()" ng-class="{active: active('workspace_users') || active('workspace_users_input')}"><a ng-href="#/workspace_users">Usuários Internos</a></li>
+        </ul>                        
+    </div> 
+</div> 

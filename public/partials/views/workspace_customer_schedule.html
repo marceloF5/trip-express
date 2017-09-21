@@ -1,0 +1,44 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/workspace_customer">Área do Cliente</a></li>
+                <li>Agendamentos</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                       
+            </ol>  
+        </div>
+    </div>            
+</div>
+
+<div ng-include="template.left"></div>
+
+
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-9">                            
+            <h2><b>Agendamentos</b></h2>                            
+        </div>        
+        <div class="col-md-3" style="padding-top: 19px;">            
+            <div class="dropdown pull-right">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Ações
+                    <span class="caret"></span>
+                </button>
+                <ui class="dropdown-menu" aria-labelledby="dropdownActions"> 
+                    <li class="dropdown-header"><b>Agendamento</b></li>
+                    <li><a ng-click="alertOnEventClick()"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>                    
+                </ui>                                
+            </div>                     
+        </div>                     
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-12">             
+            <div class="col-md-12">
+                <div ui-calendar="uiConfig.schedule" calendar="calendar" class="calendar" id="calendar" ng-model="eventSources"></div>               
+            </div>
+        </div>
+    </div>          
+</div>

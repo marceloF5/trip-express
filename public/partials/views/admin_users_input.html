@@ -1,0 +1,153 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/home">Administração</a></li>
+                <li><a ng-href="#/users">Usuários</a></li>
+                <li>Usuário</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                      
+            </ol>  
+        </div>
+    </div>            
+</div>   
+
+
+<div ng-include="template.left"></div>
+
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <legend>
+                <h2><b>Usuário</b></h2>                            
+            </legend>                            
+        </div>                                           
+    </div> 
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <form data-ng-submit="saveUser()" class="form-horizontal" name="formUser"> 
+                <div  ng-show="alertMessage" class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-md-6" ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                        'alert alert-success': typeMessage == 'success', 
+                                        'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}
+                        </div>       
+                    </div>    
+                </div>                  
+                <div ng-class="{'has-error': formUser.user_login.$invalid && !formUser.user_login.$pristine}" class="form-group">          
+                    <label for="user_login" class="col-md-2 control-label">Login*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.login" ng-required="true" ng-disabled="disableField" type="text" class="form-control" name="user_login" id="user_login">         
+                        <p ng-show="formUser.user_login.$invalid && !formUser.user_login.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>                    
+                </div>
+                <div ng-class="{'has-error': formUser.user_name.$invalid && !formUser.user_name.$pristine }" class="form-group">
+                    <label for="user_name" class="col-md-2 control-label">Nome*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.name" ng-required="true" type="text" class="form-control" name="user_name" id="user_name">
+                        <p ng-show="formUser.user_name.$invalid && !formUser.user_name.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>  
+                <div ng-class="{'has-error': formUser.user_email.$invalid && !formUser.user_email.$pristine}" class="form-group">
+                    <label for="user_email" class="col-md-2 control-label">E-mail*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.email" ng-required="true" type="email" class="form-control" name="user_email" id="user_email">
+                        <p ng-show="formUser.user_email.$invalid && !formUser.user_email.$pristine" class="help-block">Informe um e-mail válido</p>
+                    </div>
+                </div>
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formUser.user_password.$invalid && !formUser.user_password.$pristine}" class="form-group">
+                    <label for="user_password" class="col-md-2 control-label">Senha*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.password" type="password" class="form-control" id="user_password">
+                    </div>
+                </div>                                
+                <div ng-hide="showPasswordField" ng-class="{'has-error': formUser.user_password_confirm.$invalid && !formUser.user_password_confirm.$pristine}" class="form-group">
+                    <label for="user_password_confirm" class="col-md-2 control-label">Confirmar senha*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.passwordConfirm" type="password" class="form-control" id="user_password_confirm">
+                    </div>                                    
+                </div>
+                <div class="form-group">
+                    <label for="user_role" class="col-md-2 control-label">Papel*:</label>
+                    <div class="col-md-4">
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.role" type="radio" name="user_role" id="user_role_1" value="UAD">
+                                Administrador
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.role" type="radio" name="user_role" id="user_role_2" value="UCW">
+                                Cliente (Usuário Web)
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.role" type="radio" name="user_role" id="user_role_3" value="UCM">
+                                Cliente (Usuário mobile)
+                            </label>
+                        </div>  
+                        <div class="radio">
+                            <label>
+                                <input ng-model="user.role" type="radio" name="user_role" id="user_role_3" value="UEM">
+                                Funcionário
+                            </label>
+                        </div>                                          
+                    </div>
+                </div>
+                <div ng-show="user.role == 'UCM' || user.role == 'UCW'" class="form-group">
+                    <label for="user_client" class="col-md-2 control-label">Cliente:</label>
+                    <div class="col-md-4">
+                        <select ng-model="user.client" ng-options="client._id as client.companyName for client in clients" class="form-control">                                                    
+                        </select>                        
+                    </div>                                    
+                </div>
+                <div ng-show="user.role == 'UCM' || user.role == 'UCW'" class="form-group">
+                    <label for="user_address" class="col-md-2 control-label">Endereço de Residência*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="user.address" type="text" class="form-control" name="user_address" id="user_address">                        
+                    </div>
+                </div>                                    
+                <div class="form-group">
+                    <label for="user_status" class="col-md-2 control-label">Inativo:</label>
+                    <div class="col-md-8">                                         
+                        <div class="checkbox">
+                            <label>
+                                <input ng-model="user.inactive" type="checkbox" id="user_status" value="Sim">
+                            </label>
+                        </div>
+                    </div>
+                </div>     
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-primary" ng-disabled="formUser.$invalid">Salvar</button>                  
+                        <a ng-href="#/users" type="button" class="btn btn-danger">Cancelar</a> 
+                        <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Cancelar</button> -->
+                    </div>
+                </div>                                  
+            </form>
+        </div>                        
+    </div>
+</div><!--/col-md-9--> 
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Cancelar</h4>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja cancelar?
+            </div>
+            <div class="modal-footer">
+                <button ng-click="saveUser()" type="submit" class="btn btn-primary" data-dismiss="modal">Sim</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+            </div>
+        </div>
+    </div>
+</div>            

@@ -1,0 +1,149 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/home">Administração</a></li>
+                <li><a ng-href="#/customers">Clientes</a></li>
+                <li>Cliente</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                      
+            </ol>  
+        </div>
+    </div>            
+</div>   
+
+<div ng-include="template.left"></div>
+<!-- Entity Table/Input -->
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <legend>
+                <h2><b>Cliente</b></h2>                            
+            </legend>                            
+        </div>                                           
+    </div> 
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <form data-ng-submit="saveCustomer()" class="form-horizontal" name="formCustomer">
+                <div ng-show="alertMessage" class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-md-6" ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                        'alert alert-success': typeMessage == 'success', 
+                                        'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}
+                        </div>       
+                    </div>
+                </div>                                          
+                <div ng-class="{'has-error': formCustomer.customer_fantasy_name.$invalid && !formCustomer.customer_fantasy_name.$pristine}" class="form-group">
+                    <label for="customer_fantasy_name" class="col-md-2 control-label">Nome Fantasia*:</label>
+                    <div class="col-md-7">
+                        <input ng-model="customer.fantasyName" ng-required="true" type="text" class="form-control" name="customer_fantasy_name" id="customer_fantasy_name">
+                         <p ng-show="formCustomer.customer_fantasy_name.$invalid && !formCustomer.customer_fantasy_name.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div>
+                <div ng-class="{'has-error': formCustomer.customer_company_name.$invalid && !formCustomer.customer_company_name.$pristine}" class="form-group">
+                    <label for="customer_company_name" class="col-md-2 control-label">Razão Social*:</label>
+                    <div class="col-md-7">
+                        <input ng-model="customer.companyName" ng-required="true" type="text" class="form-control" name="customer_company_name" id="customer_company_name">
+                         <p ng-show="formCustomer.customer_company_name.$invalid && !formCustomer.customer_company_name.$pristine" class="help-block">Campo obrigatório</p>                        
+                    </div>
+                </div>                                
+                <div class="form-group">
+                    <label for="customer_id_type" class="col-md-2 control-label">Tipo de Pessoa*:</label>
+                    <div class="col-md-8">
+                        <div class="radio">
+                            <label>
+                                <input ng-model="customer.idType" type="radio" name="customer_id_type" id="customer_id_type_1" value="JUR">
+                                Jurídica
+                            </label>
+                            <label>                              
+                                <input ng-model="customer.idType" type="radio" name="customer_id_type" id="customer_id_type_2" value="FIS">
+                                Física
+                            </label>
+                        </div>                                       
+                    </div>
+                </div> 
+                <div ng-show="show()" ng-class="{'has-error': formCustomer.customer_id_number_cnpj.$invalid && !formCustomer.customer_id_number_cnpj.$pristine}" class="form-group">
+                    <label for="customer_id_number_cnpj" class="col-md-2 control-label">CNPJ*:</label>
+                    <div class="col-md-3">
+                        <input ng-model="customer.idNumberCNPJ" mask="99.999.999/9999-99" type="text" class="form-control" name="customer_id_number_cnpj" id="customer_id_number_cnpj">
+                        <p ng-show="formCustomer.customer_id_number_cnpj.$invalid && !formCustomer.customer_id_number_cnpj.$pristine" class="help-block">99.999.999/9999-99</p>
+                    </div>
+                </div>   
+                <div ng-hide="show()" ng-class="{'has-error': formCustomer.customer_id_number_cpf.$invalid && !formCustomer.customer_id_number_cpf.$pristine}" class="form-group">
+                    <label for="customer_id_number_cpf" class="col-md-2 control-label">CPF*:</label>
+                    <div class="col-md-3">
+                        <input ng-model="customer.idNumberCPF" mask="999.999.999-99" type="text" class="form-control" name="customer_id_number_cpf" id="customer_id_number_cpf">
+                        <p ng-show="formCustomer.customer_id_number_cpf.$invalid && !formCustomer.customer_id_number_cpf.$pristine" class="help-block">999.999.999-99</p>
+                    </div>
+                </div>                                    
+                <div ng-class="{'has-error': formCustomer.customer_zip_code.$invalid && !formCustomer.customer_zip_code.$pristine}" class="form-group">
+                    <label for="customer_zip_code" class="col-md-2 control-label">CEP*:</label>                     
+                    <div class="col-md-2">
+                        <input ng-model="customer.zipCode" mask="99999-999" type="text" class="form-control" name="customer_zip_code" id="customer_zip_code">
+                        <p ng-show="formCustomer.customer_zip_code.$invalid && !formCustomer.customer_zip_code.$pristine" class="help-block">99999-999</p>
+                    </div>              
+                </div>
+                <div ng-class="{'has-error': formCustomer.customer_address.$invalid && !formCustomer.customer_address.$pristine}" class="form-group">
+                    <label for="customer_address" class="col-md-2 control-label">Endereço*:</label>
+                    <div class="col-md-7">
+                        <input ng-model="customer.address" ng-required="true" type="text" class="form-control" name="customer_address" id="customer_address">
+                        <p ng-show="formCustomer.customer_address.$invalid && !formCustomer.customer_address.$pristine" class="help-block">Campo obrigatório</p>    
+                    </div>                                   
+                </div>                                 
+                <div class="form-group">
+                    <div ng-class="{'has-error': formCustomer.customer_city.$invalid && !formCustomer.customer_city.$pristine}">
+                        <label for="customer_city" class="col-md-2 control-label">Cidade*:</label>
+                        <div class="col-md-3">
+                            <input ng-model="customer.city" ng-required="true" type="text" class="form-control" name="customer_city" id="customer_city">
+                            <p ng-show="formCustomer.customer_city.$invalid && !formCustomer.customer_city.$pristine" class="help-block">Campo obrigatório</p>    
+                        </div>
+                    </div>
+                    <div ng-class="{'has-error': formCustomer.customer_state.$invalid && !formCustomer.customer_state.$pristine}">
+                        <label for="customer_state" class="col-md-1 control-label">Estado*:</label>
+                        <div class="col-md-3">
+                            <input ng-model="customer.state" ng-required="true" type="text" class="form-control" name="customer_state" id="customer_state">
+                            <p ng-show="formCustomer.customer_state.$invalid && !formCustomer.customer_state.$pristine" class="help-block">Campo obrigatório</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div ng-class="{'has-error': formCustomer.customer_contact.$invalid && !formCustomer.customer_contact.$pristine}">
+                        <label for="customer_contact" class="col-md-2 control-label">Contato*:</label>                     
+                        <div class="col-md-3">
+                            <input ng-model="customer.contact" ng-required="true" type="text" class="form-control" name="customer_contact" id="customer_contact">
+                            <p ng-show="formCustomer.customer_contact.$invalid && !formCustomer.customer_contact.$pristine" class="help-block">Campo obrigatório</p>
+                        </div>              
+                    </div>
+                    <div ng-class="{'has-error': formCustomer.customer_phone.$invalid && !formCustomer.customer_phone.$pristine}">
+                        <label for="customer_phone" class="col-md-1 control-label">Telefone*:</label>                     
+                        <div class="col-md-3">
+                            <input ng-model="customer.phone" ng-required="true" mask="(999)9?9999-9999" type="text" class="form-control" name="customer_phone" id="customer_phone">
+                            <p ng-show="formCustomer.customer_phone.$invalid && !formCustomer.customer_phone.$pristine" class="help-block">(999)9999-9999 ou (999)99999-999</p>
+                        </div>   
+                    </div>
+                </div>  
+                <div ng-class="{'has-error': formCustomer.customer_email.$invalid && !formCustomer.customer_email.$pristine}" class="form-group">
+                    <label for="customer_email" class="col-md-2 control-label">E-mail*:</label>                     
+                    <div class="col-md-4">
+                        <input ng-model="customer.email" ng-required="true" type="email" class="form-control" name="customer_email" id="customer_email">
+                        <p ng-show="formCustomer.customer_email.$invalid && !formCustomer.customer_email.$pristine" class="help-block">Informe um e-mail válido</p>
+                    </div>          
+                </div>                                               
+                <div class="form-group">
+                    <label for="customer_description" class="col-md-2 control-label">Descrição:</label>
+                    <div class="col-md-7">
+                        <textarea rows="4" ng-model="customer.description" class="form-control" name="customer_description" id="customer_description"></textarea> 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-8">                        
+                        <button type="submit" class="btn btn-primary" ng-disabled="formCustomer.$invalid">Salvar</button>                                
+                        <a ng-href="#/customers" type="button" class="btn btn-danger">Cancelar</a> 
+                    </div>
+                </div>                                                                
+            </form>
+        </div>
+    </div>
+</div>

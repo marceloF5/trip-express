@@ -1,0 +1,71 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/home">Administração</a></li>
+                <li>Clientes</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                       
+            </ol>  
+        </div>
+    </div>            
+</div>
+
+<div ng-include="template.left"></div>
+
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-9">                            
+            <h2><b>Clientes</b></h2>                            
+        </div>
+        <div class="col-md-3" style="padding-top: 19px;">
+            <div class="dropdown pull-right">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Ações
+                    <span class="caret"></span>
+                </button>
+                <ui class="dropdown-menu" aria-labelledby="dropdownActions"> 
+                    <li class="dropdown-header"><b>Cliente</b></li>
+                    <li><a ng-href="#/customer_input"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>                                                
+                </ui>                                
+            </div>                            
+        </div>                     
+    </div>
+    <div class="row-fluid">
+        <div class="col-md-6">
+            <input ng-model="filterUser" type="search" class="search-query form-control" id="filter" placeholder="Filtrar">
+            <div class="form-inline">
+                <div class="form-group">
+                        
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th><input type="checkbox"> </th>
+                        <th>Nome Fantasia</th>
+                        <th>Razão Social</th>                         
+                        <th>Contato</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>                                
+                    </tr>
+                    <tr ng-repeat="customer in customers | filter: filterUser">
+                        <td><input type="checkbox"> </td>
+                        <td><a ng-href="#/customers/{{customer._id}}">{{customer.fantasyName}}</a></td>
+                        <td>{{customer.companyName}}</td>                               
+                        <td>{{customer.contact}}</td>
+                        <td>{{customer.phone}}</td>
+                        <td>{{customer.email}}</td>
+                     </tr>
+                                                       
+                </tbody>    
+            </table>                                             
+        </div>
+    </div>
+</div><!--/col-md-9-->

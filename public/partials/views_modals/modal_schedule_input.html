@@ -1,0 +1,140 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="myModalLabel">Agendamento</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" name="formSchedule">            
+        <div ng-show="alertMessage" class="form-group">
+            <div class="col-md-12 col-md-offset-1">
+                <div class="col-md-9" ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                                 'alert alert-success': typeMessage == 'success', 
+                                                 'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}
+                </div>       
+            </div>
+        </div> 
+        <div ng-class="{'has-error': formSchedule.schedule_title.$invalid && !formSchedule.schedule_title.$pristine}" class="form-group">
+            <label for="schedule_title" class="col-md-3 control-label">Título do Evento*:</label>
+            <div class="col-md-7">
+                <input ng-model="title" ng-required="true" ng-disabled="disableField" type="text" name="schedule_title" id="schedule_title" class="form-control" placeholder="Ex: Visita ao Fórum">    
+                <p ng-show="formSchedule.schedule_title.$invalid && !formSchedule.schedule_title.$pristine" class="help-block">Campo obrigatório</p>  
+            </div>                                    
+        </div>    
+        <div ng-class="{'has-error': formSchedule.user_client.$error.required && !formSchedule.schedule_title.$pristine}" class="form-group">
+            <label for="user_client" class="col-md-3 control-label">Cliente*:</label>
+            <div class="col-md-4">
+                <select ng-model="customer" ng-required="true" ng-options="customer._id as customer.companyName for customer in customers" ng-disabled="disableField" class="form-control">    
+                </select>                        
+                <p ng-show="formSchedule.user_client.$invalid && !formSchedule.user_client.$pristine" class="help-block">Selecione um Cliente</p>
+            </div>                                    
+        </div> 
+        <div ng-click='defaultAddress()' ng-class="{'has-error': formSchedule.calendar_user.$invalid && !formSchedule.calendar_user.$pristine}" class="form-group">
+            <label for="calendar_user" class="col-md-3 control-label">Passageiro*:</label>
+            <div class="col-md-4">
+                <select ng-model="user" ng-required="true" ng-options="user._id as user.name for user in users" ng-disabled="disableField" class="form-control">            
+                </select>
+                <p ng-show="formSchedule.calendar_user.$invalid && !formSchedule.calendar_user.$pristine" class="help-block">Selecione um Passageiro</p>                  
+            </div>                                    
+        </div>
+        <div class="form-group">
+            <div ng-class="{'has-error': formSchedule.calendar_date_start.$invalid && !formSchedule.calendar_date_start.$pristine}">
+                <label for="calendar_date_start" class="col-md-3 control-label">Data*:</label>
+                <div class="col-md-3">
+                    <input ng-model="dateStart" ng-required="true" ng-disabled="disableField" type="date" class="form-control" name="calendar_date_start" id="calendar_date_start">
+                    <p ng-show="formSchedule.calendar_date_start.$invalid && !formSchedule.calendar_date_start.$pristine" class="help-block">Data incorreta</p>  
+                </div>
+            </div>        
+        </div> 
+        <div class="form-group">
+            <div ng-class="{'has-error': formSchedule.calendar_time_start.$invalid && !formSchedule.calendar_time_start.$pristine}">
+                <label for="calendar_time_start" class="col-md-3 control-label">Horário - Partida*:</label>
+                <div class="col-md-2">
+                    <input ng-model="timeStart" ng-required="true" ng-disabled="disableField" type="time" class="form-control" name="calendar_time_start" id="calendar_time_start">
+                    <p ng-show="formSchedule.calendar_time_start.$error.time && !formSchedule.calendar_time_start.$pristine" class="help-block">Horário incorreto</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+        <!--<div ng-class="{'has-error': formSchedule.calendar_date_end.$invalid && !formSchedule.calendar_date_end.$pristine}">
+                <label for="calendar_date_end" class="col-md-2 control-label">Data Final*:</label>
+                <div class="col-md-4">
+                    <input ng-model="dateEnd" ng-required="true" ng-disabled="disableField" type="date" class="form-control" name="calendar_date_end" id="calendar_date_end">
+                    <p ng-show="formSchedule.calendar_date_end.$invalid && !formSchedule.calendar_date_end.$pristine" class="help-block">Data incorreta</p>
+                </div>
+            </div>-->
+            <div ng-class="{'has-error': formSchedule.calendar_time_end.$invalid && !formSchedule.calendar_time_end.$pristine}">
+                <label for="calendar_time_end" class="col-md-3 control-label">Horário - Chegada*:</label>
+                <div class="col-md-2">
+                    <input ng-model="timeEnd" ng-required="true" ng-disabled="disableField" type="time" class="form-control" name="calendar_time_end" id="calendar_time_end">
+                    <p ng-show="formSchedule.calendar_time_end.$invalid && !formSchedule.calendar_time_end.$pristine" class="help-block">Horário incorreto</p>
+                </div>
+            </div>
+        </div> 
+        <div class="form-group">
+            <div class="col-md-12">
+                <legend><h4>Informações Adicionais (Local)</h4></legend>
+            </div>
+        </div>
+        <label for="calendar_local_origin_type" class="col-md-3 control-label">&nbsp;</label>
+        <div class="form-group" ng-click='defaultAddress()'>            
+            <div class="col-md-7">
+                <label class="radio-inline">
+                    <input ng-model="addressType" type="radio" name="address_type" id="calendar_local_origin_type_1" value="ESC">
+                    Escritório
+                </label>
+            
+                <label class="radio-inline">
+                    <input ng-model="addressType" type="radio" name="address_type" id="calendar_local_origin_type_2" value="ENA">
+                    Residência
+                </label>                
+                <label class="radio-inline">
+                    <input ng-model="addressType" type="radio" name="address_type" id="calendar_local_origin_type_3" value="OUT">
+                    Outro
+                </label>                        
+             </div>                                                       
+        </div>    
+                
+        <div ng-class="{'has-error': formSchedule.calendar_local_origin.$invalid && !formSchedule.calendar_local_origin.$pristine}" class="form-group">                    
+            <label for="addressType" class="col-md-3 control-label">Origem*:</label>
+            
+            <div class="col-md-7">
+                <input ng-model="localOrigin" ng-required="true" ng-disabled="disableFieldAddress" type="text" class="form-control" name="calendar_local_origin" id="calendar_local_origin">
+                <p ng-show="formSchedule.calendar_local_origin.$invalid && !formSchedule.calendar_local_origin.$pristine" class="help-block">Campo obrigatório</p>
+            </div>
+        </div>
+        <div ng-class="{'has-error': formSchedule.calendar_local_destination.$invalid && !formSchedule.calendar_local_destination.$pristine}" class="form-group">
+            <label for="calendar_local_destination" class="col-md-3 control-label">Destino*:</label>
+            <div class="col-md-7">
+                <input ng-model="localDestination" ng-required="true" ng-disabled="disableField" type="text" class="form-control" name="calendar_local_destination" id="calendar_local_destination">
+                <p ng-show="formSchedule.calendar_local_destination.$invalid && !formSchedule.calendar_local_destination.$pristine" class="help-block">Campo obrigatório</p>
+            </div>
+        </div>
+        <div ng-show="UAD || disableField" class="form-group">
+            <div class="col-md-12">
+                <legend><h4>Confirmação Trip4Vip</h4></legend>
+            </div>
+        </div>
+        <div ng-show="UAD || disableField" ng-class="{'has-error': formSchedule.user_driver.$error.required && !formSchedule.user_driver.$pristine}" class="form-group">            
+            <label for="user_driver" class="col-md-3 control-label">Motorista*:</label>
+            <div class="col-md-7">
+                <select ng-model="driver" ng-options="driver._id as driver.name for driver in drivers" ng-disabled="disableField" class="form-control">    
+                </select>                        
+                <p ng-show="formSchedule.user_driver.$invalid && !formSchedule.user_driver.$pristine" class="help-block">Selecione um Cliente</p>
+            </div>   
+        </div> 
+        <div ng-show="UAD || disableField" ng-class="{'has-error': formSchedule.calendar_vehicle.$invalid && !formSchedule.calendar_vehicle.$pristine}" class="form-group">
+            <label for="calendar_vehicle" class="col-md-3 control-label">Veículo*:</label>
+            <div class="col-md-7">
+                <select ng-model="vehicle" ng-options="vehicle._id as vehicle.model for vehicle in vehicles" ng-disabled="disableField" class="form-control">            
+                </select>
+                <p ng-show="formSchedule.calendar_vehicle.$invalid && !formSchedule.calendar_vehicle.$pristine" class="help-block">Selecione um Passageiro</p>                  
+            </div>                                    
+        </div>
+
+    </form>
+</div>            
+<div class="modal-footer"> 
+    <button ng-hide="disableField" ng-click="saveSchedule()"  type="submit" class="btn btn-success" ng-disabled="formSchedule.$invalid">Confirmar</button>
+    <button ng-hide="disableField" ng-click="cancel()" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+    <button ng-show="UAD && disableField" ng-click="enableFields()" type="button" class="btn btn-primary" data-dismiss="modal">Editar</button>
+    <button ng-show="disableField" ng-click="cancel()" type="button" class="btn btn-danger" data-dismiss="modal">Voltar</button>
+    <a ng-hide="disableField" type="button" ng-click="remove(scheduleId)" class="btn"><i class="glyphicon glyphicon-trash"></i> Excluir</a>
+</div>

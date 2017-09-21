@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="well col-md-offset-4 col-md-4" style="position: absolute; top: 20%"> 
+            <form data-ng-submit="authenticate()" class="form-horizontal" name="formLogin">                       
+                <div class="row-fluid form-inline">                                                                                            
+                    <p class="text-center"><h3><b>TRIP Express </b><i>beta</i></h3></p>                            
+                </div>
+                <div  ng-show="alertMessage" class="form-group">
+                    <div class="col-md-12">
+                        <div ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                        'alert alert-success': typeMessage == 'success', 
+                                        'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}</div>       
+                    </div>
+                </div>              
+                <div ng-class="{'has-error': formLogin.user_login.$invalid && !formLogin.user_login.$pristine}" class="form-group">          
+                    <div class="col-md-12">
+                        <input ng-model="user.login" type="login" class="form-control" name="user_login" id="user_login" placeholder="Usuário">                    
+                    </div>
+                </div>
+                <div class="form-group">                            
+                    <div class="col-md-12">
+                        <input ng-model="user.password" type="password" class="form-control" name="user_password" id="user_password" placeholder="Senha">
+                    </div>
+                </div>
+                <div ng-show="typeMessage == 'warning'" class="form-group">                            
+                    <div class="col-md-12">
+                        <input ng-model="newPassword" type="password" class="form-control" name="user_new_password" id="user_new_password" 
+                        placeholder="Nova senha">
+                    </div>
+                </div>
+                <div ng-show="typeMessage == 'warning'" class="form-group">                            
+                    <div class="col-md-12">
+                        <input ng-model="newPasswordConfirm" type="password" class="form-control" name="user_new_password_confirm" id="user_new_password_confirm" placeholder="Confirmar nova senha">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">                             
+                        <button type="submit" class="btn btn-lg btn-primary btn-block">{{ button }}</button> 
+                    </div>
+                </div>                                     
+                <div class="form-group">
+                    <div class="col-md-4 pull-right">
+                        <small><a href="#">Esqueci minha senha</a></small>
+                    </div>
+                </div>                                               
+            </form>                   
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div ng-include="template.header"></div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a ng-href="#/home">Administração</a></li>
+                <li><a ng-href="#/prices">Tabela de Preços</a></li>
+                <li>Preço</li>
+                <ui id="publishDate" class="pull-right .hidden-800"><small>| Development Environment</small></ui> 
+                <ui id="projectVersion" class="pull-right .hidden-800"><small>Version: 0.0.0.1-SNAPSHOT |</small></ui>                                      
+            </ol>  
+        </div>
+    </div>            
+</div>   
+
+
+<div ng-include="template.left"></div>
+
+<div class="col-md-10">                    
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <legend>
+                <h2><b>Preço</b></h2>                            
+            </legend>                            
+        </div>                                           
+    </div> 
+    <div class="row-fluid">
+        <div class="col-md-12">
+            <form data-ng-submit="saveUser()" class="form-horizontal" name="formUser"> 
+                <div  ng-show="alertMessage" class="form-group">
+                    <div class="col-md-12">
+                        <div class="col-md-6" ng-class="{'alert alert-danger': typeMessage == 'danger', 
+                                        'alert alert-success': typeMessage == 'success', 
+                                        'alert alert-warning': typeMessage == 'warning'}" role="alert">{{ message }}
+                        </div>       
+                    </div>    
+                </div> 
+
+        <!-- Em OBRAS -->
+
+                <div class="form-group">
+                    <label for="price_type" class="col-md-2 control-label">Tipo de Taxa*:</label>
+                    <div class="col-md-7">
+                        <label class="radio-inline">
+                            <input ng-model="price.type" type="radio" name="price_type" id="price_type_1" value="TDP">
+                            para VIAGENS (Preços Fechados)
+                        </label>
+                    
+                        <label class="radio-inline">
+                            <input ng-model="price.type" type="radio" name="price_type" id="price_type_2" value="TEX">
+                            para HORA EXCEDIDA E KM RODADO
+                        </label>                        
+                     </div>                                                       
+                </div>
+
+                <div ng-show="true" ng-class="{'has-error': formSchedule.price_group.$error.required && !formSchedule.price_group.$pristine}" class="form-group">                
+                    <label for="price_group" class="col-md-2 control-label">Grupo*:</label>
+                    <div class="col-md-4">
+                        <select ng-model="price.group" ng-options="group._id as group.name for group in groups" ng-disabled="false" class="form-control">    
+                        </select>                        
+                        <p ng-show="formSchedule.price_group.$invalid && !formSchedule.price_group.$pristine" class="help-block">Selecione um Grupo</p>
+                    </div>   
+                </div> 
+
+                <div ng-show="true" ng-class="{'has-error': formSchedule.price_customer.$error.required && !formSchedule.price_customer.$pristine}" class="form-group">                
+                    <label for="price_customer" class="col-md-2 control-label">Cliente*:</label>
+                    <div class="col-md-4">
+                        <select ng-model="price.customer" ng-options="client._id as client.companyName for client in clients" ng-disabled="false" class="form-control">    
+                        </select>                        
+                        <p ng-show="formSchedule.price_customer.$invalid && !formSchedule.price_customer.$pristine" class="help-block">Selecione um Cliente</p>
+                    </div>   
+                </div> 
+     
+                <div ng-class="{'has-error': formUser.price_local.$invalid && !formUser.price_local.$pristine}" class="form-group">          
+                    <label for="price_local" class="col-md-2 control-label">Local*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="price.local" ng-required="true" ng-disabled="disableField" type="text" class="form-control" name="price_local" id="price_local">         
+                        <p ng-show="formUser.price_local.$invalid && !formUser.price_local.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>                    
+                </div>
+                <div ng-class="{'has-error': formUser.price_value.$invalid && !formUser.price_value.$pristine }" class="form-group">
+                    <label for="price_value" class="col-md-2 control-label">Valor*:</label>
+                    <div class="col-md-4">
+                        <input ng-model="price.value" ng-required="true" type="text" class="form-control" name="price_value" id="price_value">
+                        <p ng-show="formUser.price_value.$invalid && !formUser.price_value.$pristine" class="help-block">Campo obrigatório</p>
+                    </div>
+                </div> 
+
+        <!-- Em OBRAS-->
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-primary" ng-disabled="formUser.$invalid">Salvar</button>                  
+                        <a ng-href="#/prices" type="button" class="btn btn-danger">Cancelar</a> 
+                        <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Cancelar</button> -->
+                    </div>
+                </div>                                  
+            </form>
+        </div>                        
+    </div>
+</div><!--/col-md-9-->            
